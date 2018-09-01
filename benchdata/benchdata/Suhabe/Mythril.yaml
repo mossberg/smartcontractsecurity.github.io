@@ -1,0 +1,737 @@
+analyzer: Mythril
+benchmark_count: 35
+benchmark_files: [assert_constructor.sol, assert_minimal.sol, assert_multitx_1.sol,
+  assert_multitx_2.sol, assert_require.sol, assert_sym.sol, attribute_store.sol, eth_tx_order_dependence_2.sol,
+  eth_tx_order_dependence_minimal.sol, eth_tx_order_dependence_multitx_1.sol, eth_tx_order_dependence_puzzle.sol,
+  integer_overflow_add.sol, integer_overflow_benign_1.sol, integer_overflow_benign_2.sol,
+  integer_overflow_bytes_param.sol, integer_overflow_dynarray.sol, integer_overflow_mapping_mapping.sol,
+  integer_overflow_mapping_staticarray.sol, integer_overflow_mapping_strkey.sol, integer_overflow_mapping_struct.sol,
+  integer_overflow_mapping_sym_1.sol, integer_overflow_mapping_sym_2.sol, integer_overflow_mapping_word.sol,
+  integer_overflow_minimal.sol, integer_overflow_mul.sol, integer_overflow_multitx_multifunc_feasible.sol,
+  integer_overflow_multitx_onefunc_feasible.sol, integer_overflow_multitx_onefunc_infeasible.sol,
+  integer_overflow_path_1.sol, integer_overflow_staticarray.sol, integer_overflow_storageinvariant.sol,
+  integer_overflow_storagepacking.sol, reentrancy_dao.sol, reentrancy_dao_fixed.sol,
+  reentrancy_nostateeffect.sol]
+benchmark_link: https://github.com/ConsenSys/evm-analyzer-benchmark-suite
+benchmark_subdir: benchmarks
+benchmark_url_dir: https://raw.githubusercontent.com/ConsenSys/evm-analyzer-benchmark-suite/master
+benchmarks:
+  assert_constructor:
+    bug_type: Assertion
+    elapsed_str: errored
+    execution_returncode: 1
+    expected_data:
+      bug_type: Assertion
+      has_bug: true
+      ignore: false
+      issues:
+      - {address: 96, code: assert(false), title: Exception state}
+      link: https://github.com/EthereumAnalysisBenchmarks/ethereum-analyzers-suites-runner/wiki/suhabe-assert_constructor
+    result: Errored
+  assert_minimal:
+    bug_type: Assertion
+    elapsed: 1.231060266494751
+    elapsed_str: ' 1.23 seconds'
+    execution_returncode: 0
+    expected_data:
+      bug_type: Assertion
+      has_bug: true
+      ignore: false
+      issues:
+      - {address: 96, code: assert(false), title: Exception state}
+      link: https://github.com/EthereumAnalysisBenchmarks/ethereum-analyzers-suites-runner/wiki/suhabe-assert_minimal
+    issues:
+    - {address: 96, code: assert(false), contract: AssertMinimal, debug: 'The exception
+        is triggered under the following conditions:
+
+
+        calldata_AssertMinimal[0]: 0xc040622600000000000000000000000000000000000000000000000000000000
+
+        calldatasize_AssertMinimal: 0x4
+
+        call_value: 0x0
+
+        ', description: 'A reachable exception (opcode 0xfe) has been detected. This
+        can be caused by type errors, division by zero, out-of-bounds array access,
+        or assert violations. This is acceptable in most situations. Note however
+        that `assert()` should only be used to check invariants. Use `require()` for
+        regular input checking. ', filename: assert_minimal.sol, function: run(),
+      lineno: 5, title: Exception state, type: Informational}
+    result: True Positive
+  assert_multitx_1:
+    bug_type: Assertion
+    elapsed: 1.4109983444213867
+    elapsed_str: ' 1.41 seconds'
+    execution_returncode: 0
+    expected_data:
+      bug_type: Assertion
+      has_bug: false
+      ignore: false
+      issues:
+      - {address: 99, code: assert(param > 0), title: Exception state}
+    issues: []
+    result: True Negative
+  assert_multitx_2:
+    bug_type: Assertion
+    elapsed: 2.622995615005493
+    elapsed_str: ' 2.62 seconds'
+    execution_returncode: 0
+    expected_data:
+      bug_type: Assertion
+      has_bug: true
+      ignore: false
+      issues:
+      - {address: 161, code: assert(param > 0), title: Exception state}
+    issues: []
+    result: False Negative
+  assert_require:
+    bug_type: Assertion
+    elapsed: 2.187791585922241
+    elapsed_str: ' 2.19 seconds'
+    execution_returncode: 0
+    expected_data:
+      bug_type: Assertion
+      has_bug: false
+      ignore: false
+      issues: []
+    issues: []
+    result: True Negative
+  assert_sym:
+    bug_type: Assertion
+    elapsed: 2.102411985397339
+    elapsed_str: ' 2.10 seconds'
+    execution_returncode: 0
+    expected_data:
+      bug_type: Assertion
+      has_bug: true
+      ignore: false
+      issues:
+      - {address: 120, code: assert(param > 0), title: Exception state}
+    issues:
+    - {address: 120, code: assert(param > 0), contract: AssertSym, debug: 'The exception
+        is triggered under the following conditions:
+
+
+        calldata_AssertSym[0]: 0xa444f5e900000000000000000000000000000000000000000000000000000000
+
+        calldatasize_AssertSym: 0x4
+
+        calldata_AssertSym[4]: 0x0
+
+        call_value: 0x0
+
+        ', description: 'A reachable exception (opcode 0xfe) has been detected. This
+        can be caused by type errors, division by zero, out-of-bounds array access,
+        or assert violations. This is acceptable in most situations. Note however
+        that `assert()` should only be used to check invariants. Use `require()` for
+        regular input checking. ', filename: assert_sym.sol, function: run(uint256),
+      lineno: 5, title: Exception state, type: Informational}
+    result: True Positive
+  attribute_store:
+    bug_type: Integer Overflow
+    elapsed: 1.2613403797149658
+    elapsed_str: ' 1.26 seconds'
+    execution_returncode: 0
+    expected_data:
+      bug_type: Integer Overflow
+      has_bug: false
+      ignore: false
+      issues: []
+    issues: []
+    result: True Negative
+  eth_tx_order_dependence_2:
+    bug_type: Eth Tx-Order Dependence
+    elapsed: 1.5920178890228271
+    elapsed_str: ' 1.59 seconds'
+    execution_returncode: 0
+    expected_data:
+      bug_type: Eth Tx-Order Dependence
+      has_bug: false
+      ignore: false
+      issues: []
+    issues:
+    - {address: 316, code: owner.transfer(reward), contract: EthTxOrderDependence2,
+      debug: 'SOLVER OUTPUT:
+
+        retval_316: 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+
+        calldata_EthTxOrderDependence2[0]: 0x3eb6a67e00000000000000000000000000000000000000000000000000000000
+
+        calldatasize_EthTxOrderDependence2: 0x4
+
+        call_value: 0x0
+
+        ', description: 'In the function `setReward()` a non-zero amount of Ether
+        is sent to msg.sender.
+
+        It seems that this function can be called without restrictions.', filename: eth_tx_order_dependence_2.sol,
+      function: setReward(), lineno: 14, title: Ether send, type: Warning}
+    - {address: 316, code: owner.transfer(reward), contract: EthTxOrderDependence2,
+      debug: '', description: "Multiple sends exist in one transaction, try to isolate\
+        \ each external call into its own transaction. As external calls can fail\
+        \ accidentally or deliberately.\nConsecutive calls: \nCall at address: 316\n",
+      filename: eth_tx_order_dependence_2.sol, function: setReward(), lineno: 14,
+      title: Multiple Calls, type: Information}
+    result: False Positive
+  eth_tx_order_dependence_minimal:
+    bug_type: Eth Tx-Order Dependence
+    elapsed: 4.154650449752808
+    elapsed_str: ' 4.15 seconds'
+    execution_returncode: 0
+    expected_data:
+      bug_type: Eth Tx-Order Dependence
+      has_bug: true
+      ignore: false
+      issues:
+      - {address: 554, code: owner.transfer(reward), title: Ether send}
+      - {address: 554, code: owner.transfer(reward), title: Transaction order dependence}
+    issues:
+    - {address: 554, code: owner.transfer(reward), contract: EthTxOrderDependenceMinimal,
+      debug: 'SOLVER OUTPUT:
+
+        retval_554: 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+
+        calldata_EthTxOrderDependenceMinimal[0]: 0x3eb6a67e00000000000000000000000000000000000000000000000000000000
+
+        calldatasize_EthTxOrderDependenceMinimal: 0x4
+
+        call_value: 0x0
+
+        ', description: 'In the function `setReward()` a non-zero amount of Ether
+        is sent to msg.sender.
+
+        It seems that this function can be called without restrictions.', filename: eth_tx_order_dependence_minimal.sol,
+      function: setReward(), lineno: 16, title: Ether send, type: Warning}
+    - {address: 554, code: owner.transfer(reward), contract: EthTxOrderDependenceMinimal,
+      debug: '', description: "Multiple sends exist in one transaction, try to isolate\
+        \ each external call into its own transaction. As external calls can fail\
+        \ accidentally or deliberately.\nConsecutive calls: \nCall at address: 554\n\
+        Call at address: 716\n", filename: eth_tx_order_dependence_minimal.sol, function: setReward(),
+      lineno: 16, title: Multiple Calls, type: Information}
+    result: True Positive
+  eth_tx_order_dependence_multitx_1:
+    bug_type: Eth Tx-Order Dependence
+    elapsed: 3.8449835777282715
+    elapsed_str: ' 3.84 seconds'
+    execution_returncode: 0
+    expected_data: {bug_type: Eth Tx-Order Dependence, has_bug: false, ignore: false}
+    issues:
+    - {address: 616, code: owner.transfer(reward), contract: EtxTxOrderDependenceMultiTx1,
+      debug: 'SOLVER OUTPUT:
+
+        retval_616: 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+
+        calldata_EtxTxOrderDependenceMultiTx1[0]: 0x3eb6a67e00000000000000000000000000000000000000000000000000000000
+
+        calldatasize_EtxTxOrderDependenceMultiTx1: 0x4
+
+        call_value: 0x0
+
+        ', description: 'In the function `setReward()` a non-zero amount of Ether
+        is sent to msg.sender.
+
+        It seems that this function can be called without restrictions.', filename: eth_tx_order_dependence_multitx_1.sol,
+      function: setReward(), lineno: 18, title: Ether send, type: Warning}
+    - {address: 616, code: owner.transfer(reward), contract: EtxTxOrderDependenceMultiTx1,
+      debug: '', description: "Multiple sends exist in one transaction, try to isolate\
+        \ each external call into its own transaction. As external calls can fail\
+        \ accidentally or deliberately.\nConsecutive calls: \nCall at address: 616\n",
+      filename: eth_tx_order_dependence_multitx_1.sol, function: setReward(), lineno: 18,
+      title: Multiple Calls, type: Information}
+    result: False Positive
+  eth_tx_order_dependence_puzzle:
+    bug_type: Eth Tx-Order Dependence
+    elapsed: 17.04875683784485
+    elapsed_str: 17.05 seconds
+    execution_returncode: 0
+    expected_data:
+      bug_type: Eth Tx-Order Dependence
+      has_bug: true
+      ignore: false
+      issues:
+      - {address: 316, code: owner.transfer(reward), title: Ether send}
+      - {address: 316, code: owner.transfer(reward), title: Transaction order dependence}
+      - {address: 551, code: owner.transfer(reward), title: Transaction order dependence}
+      - {address: 551, code: owner.transfer(reward), title: Transaction order dependence}
+      - {address: 1416, title: Integer Overflow}
+      run_time: 120.0
+    issues: []
+    result: False Negative
+  integer_overflow_add:
+    bug_type: Integer Overflow
+    elapsed: 4.0444416999816895
+    elapsed_str: ' 4.04 seconds'
+    execution_returncode: 0
+    expected_data:
+      bug_type: Integer Overflow
+      has_bug: true
+      ignore: false
+      issues:
+      - {address: 174, code: count += input, title: Integer Overflow}
+      link: https://github.com/EthereumAnalysisBenchmarks/ethereum-analyzers-suites-runner/wiki/suhabe-integer_overflow_add
+    issues:
+    - {address: 174, code: count += input, contract: IntegerOverflowAdd, debug: 'calldata_IntegerOverflowAdd[4]:
+        0xffffffffffffffffffff55554aaa80005555555556ffffffffffffffffffffff
+
+        calldata_IntegerOverflowAdd[0]: 0xa444f5e900000000000000000000000000000000000000000000000000000000
+
+        calldatasize_IntegerOverflowAdd: 0x4
+
+        call_value: 0x0
+
+        ', description: 'A possible integer overflow exists in the function `run(uint256)`.
+
+        The addition or multiplication may result in a value higher than the maximum
+        representable integer.', filename: integer_overflow_add.sol, function: run(uint256),
+      lineno: 10, title: Integer Overflow, type: Warning}
+    result: True Positive
+  integer_overflow_benign_1:
+    bug_type: Integer Overflow
+    elapsed: 2.674142837524414
+    elapsed_str: ' 2.67 seconds'
+    execution_returncode: 0
+    expected_data:
+      bug_type: Integer Overflow
+      has_bug: benign
+      ignore: false
+      issues: []
+      link: https://github.com/EthereumAnalysisBenchmarks/ethereum-analyzers-suites-runner/wiki/suhabe-integer_overflow_benign_1
+    issues: []
+    result: True Negative
+  integer_overflow_benign_2:
+    bug_type: Integer Overflow
+    elapsed: 4.223314523696899
+    elapsed_str: ' 4.22 seconds'
+    execution_returncode: 0
+    expected_data:
+      bug_type: Integer Overflow
+      has_bug: benign
+      ignore: false
+      issues:
+      - {address: 231, code: 'sub(a,b)', title: Integer Underflow}
+      - {address: 246, code: 'add(res,b)', title: Integer Overflow}
+      link: https://github.com/EthereumAnalysisBenchmarks/ethereum-analyzers-suites-runner/wiki/suhabe-integer_overflow_benign_2
+      run_time: 30.0
+    issues:
+    - {address: 231, code: 'sub(a,b)', contract: IntegerOverflowBenign2, debug: 'calldata_IntegerOverflowBenign2[4]:
+        0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe
+
+        calldata_IntegerOverflowBenign2[0]: 0xa444f5e900000000000000000000000000000000000000000000000000000000
+
+        calldatasize_IntegerOverflowBenign2: 0x4
+
+        call_value: 0x0
+
+        ', description: 'A possible integer underflow exists in the function `run(uint256)`.
+
+        The subtraction may result in a value < 0.', filename: integer_overflow_benign_2.sol,
+      function: run(uint256), lineno: 22, title: Integer Underflow, type: Warning}
+    - {address: 246, code: 'add(res,b)', contract: IntegerOverflowBenign2, debug: 'calldata_IntegerOverflowBenign2[4]:
+        0x8000000000000000000000000000000000000000000000000000000000000001
+
+        calldata_IntegerOverflowBenign2[0]: 0xa444f5e900000000000000000000000000000000000000000000000000000000
+
+        calldatasize_IntegerOverflowBenign2: 0x4
+
+        call_value: 0x0
+
+        ', description: 'A possible integer overflow exists in the function `run(uint256)`.
+
+        The addition or multiplication may result in a value higher than the maximum
+        representable integer.', filename: integer_overflow_benign_2.sol, function: run(uint256),
+      lineno: 23, title: Integer Overflow, type: Warning}
+    result: Benign
+  integer_overflow_bytes_param:
+    bug_type: Integer Overflow
+    elapsed: 77.35542392730713
+    elapsed_str: 1 minute, 17.36 seconds
+    execution_returncode: 0
+    expected_data: {bug_type: Integer Overflow, has_bug: false, ignore: false, run_time: 30.0}
+    issues:
+    - {address: 104, code: "function get(bytes key) public pure returns (bytes32)\
+        \ {\n        return keccak256(key);\n    }", contract: IntegerOverflowBytesParam,
+      debug: 'calldata_IntegerOverflowBytesParam[4]: 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffc
+
+        calldata_IntegerOverflowBytesParam[4 + calldata_IntegerOverflowBytesParam[4]]:
+        0x1f
+
+        calldata_IntegerOverflowBytesParam[0]: 0xd6d7d52500000000000000000000000000000000000000000000000000000000
+
+        calldatasize_IntegerOverflowBytesParam: 0x4
+
+        call_value: 0x0
+
+        ', description: 'A possible integer overflow exists in the function `get(bytes)`.
+
+        The addition or multiplication may result in a value higher than the maximum
+        representable integer.', filename: integer_overflow_bytes_param.sol, function: get(bytes),
+      lineno: 4, title: Integer Overflow, type: Warning}
+    result: False Positive
+  integer_overflow_dynarray:
+    bug_type: Integer Overflow
+    elapsed: 1.9747035503387451
+    elapsed_str: ' 1.97 seconds'
+    execution_returncode: 0
+    expected_data:
+      bug_type: Integer Overflow
+      has_bug: false
+      ignore: false
+      issues:
+      - {address: 498, title: Integer Overflow}
+    issues: []
+    result: True Negative
+  integer_overflow_mapping_mapping:
+    bug_type: Integer Overflow
+    elapsed: 3.504711389541626
+    elapsed_str: ' 3.50 seconds'
+    execution_returncode: 0
+    expected_data:
+      bug_type: Integer Overflow
+      has_bug: false
+      ignore: false
+      issues: []
+    issues: []
+    result: True Negative
+  integer_overflow_mapping_staticarray:
+    bug_type: Integer Overflow
+    elapsed: 2.2653183937072754
+    elapsed_str: ' 2.27 seconds'
+    execution_returncode: 0
+    expected_data:
+      bug_type: Integer Overflow
+      has_bug: false
+      ignore: false
+      issues: []
+    issues: []
+    result: True Negative
+  integer_overflow_mapping_strkey:
+    bug_type: Integer Overflow
+    elapsed: 78.84685730934143
+    elapsed_str: 1 minute, 18.85 seconds
+    execution_returncode: 0
+    expected_data: {bug_type: Integer Overflow, has_bug: false, ignore: false, run_time: 35.0}
+    issues:
+    - {address: 104, code: "function get(string key) public view returns (uint256)\
+        \ {\n        return map[key];\n    }", contract: IntegerOverflowMappingStrKey,
+      debug: 'calldata_IntegerOverflowMappingStrKey[4]: 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffc
+
+        calldata_IntegerOverflowMappingStrKey[4 + calldata_IntegerOverflowMappingStrKey[4]]:
+        0x1f
+
+        calldata_IntegerOverflowMappingStrKey[0]: 0x693ec85e00000000000000000000000000000000000000000000000000000000
+
+        calldatasize_IntegerOverflowMappingStrKey: 0x4
+
+        call_value: 0x0
+
+        ', description: 'A possible integer overflow exists in the function `get(string)`.
+
+        The addition or multiplication may result in a value higher than the maximum
+        representable integer.', filename: integer_overflow_mapping_strkey.sol, function: get(string),
+      lineno: 6, title: Integer Overflow, type: Warning}
+    result: False Positive
+  integer_overflow_mapping_struct:
+    bug_type: Integer Overflow
+    elapsed: 3.7438859939575195
+    elapsed_str: ' 3.74 seconds'
+    execution_returncode: 0
+    expected_data: {bug_type: Integer Overflow, has_bug: false, ignore: false}
+    issues: []
+    result: True Negative
+  integer_overflow_mapping_sym_1:
+    bug_type: Integer Overflow
+    elapsed: 2.505828380584717
+    elapsed_str: ' 2.51 seconds'
+    execution_returncode: 0
+    expected_data:
+      bug_type: Integer Overflow
+      has_bug: true
+      ignore: false
+      issues:
+      - {address: 145, code: 'map[k] -= v', title: Integer Underflow}
+    issues:
+    - {address: 145, code: 'map[k] -= v', contract: IntegerOverflowMappingSym1, debug: 'calldata_IntegerOverflowMappingSym1[36]:
+        0x90002000000000000000000000000000000000000f0000000000000000a00009
+
+        calldata_IntegerOverflowMappingSym1[0]: 0xa5843f0800000000000000000000000000000000000000000000000000000000
+
+        calldatasize_IntegerOverflowMappingSym1: 0x4
+
+        call_value: 0x0
+
+        ', description: 'A possible integer underflow exists in the function `init(uint256,uint256)`.
+
+        The subtraction may result in a value < 0.', filename: integer_overflow_mapping_sym_1.sol,
+      function: 'init(uint256,uint256)', lineno: 7, title: Integer Underflow, type: Warning}
+    result: True Positive
+  integer_overflow_mapping_sym_2:
+    bug_type: Integer Overflow
+    elapsed: 2.596144914627075
+    elapsed_str: ' 2.60 seconds'
+    execution_returncode: 0
+    expected_data:
+      bug_type: Integer Overflow
+      has_bug: false
+      ignore: false
+      issues: []
+    issues: []
+    result: True Negative
+  integer_overflow_mapping_word:
+    bug_type: Integer Overflow
+    elapsed: 2.4334661960601807
+    elapsed_str: ' 2.43 seconds'
+    execution_returncode: 0
+    expected_data:
+      bug_type: Integer Overflow
+      has_bug: false
+      ignore: false
+      issues: []
+    issues: []
+    result: True Negative
+  integer_overflow_minimal:
+    bug_type: Integer Overflow
+    elapsed: 2.6101033687591553
+    elapsed_str: ' 2.61 seconds'
+    execution_returncode: 0
+    expected_data:
+      bug_type: Integer Overflow
+      has_bug: true
+      ignore: false
+      issues:
+      - {address: 174, code: count -= input, title: Integer Underflow}
+    issues:
+    - {address: 174, code: count -= input, contract: IntegerOverflowMinimal, debug: 'calldata_IntegerOverflowMinimal[4]:
+        0x1
+
+        calldata_IntegerOverflowMinimal[0]: 0xa444f5e900000000000000000000000000000000000000000000000000000000
+
+        calldatasize_IntegerOverflowMinimal: 0x4
+
+        call_value: 0x0
+
+        ', description: 'A possible integer underflow exists in the function `run(uint256)`.
+
+        The subtraction may result in a value < 0.', filename: integer_overflow_minimal.sol,
+      function: run(uint256), lineno: 10, title: Integer Underflow, type: Warning}
+    result: True Positive
+  integer_overflow_mul:
+    bug_type: Integer Overflow
+    elapsed: 20.373425483703613
+    elapsed_str: 20.37 seconds
+    execution_returncode: 0
+    expected_data:
+      bug_type: Integer Overflow
+      has_bug: true
+      ignore: false
+      issues:
+      - {address: 174, code: count *= input, title: Integer Overflow}
+    issues:
+    - {address: 174, code: count *= input, contract: IntegerOverflowMul, debug: 'calldata_IntegerOverflowMul[4]:
+        0xf398a6eaada1659a9804adf32204036fdcf88ee389d1d6e541c49ec5f7affafb
+
+        calldata_IntegerOverflowMul[0]: 0xa444f5e900000000000000000000000000000000000000000000000000000000
+
+        calldatasize_IntegerOverflowMul: 0x4
+
+        call_value: 0x0
+
+        ', description: 'A possible integer overflow exists in the function `run(uint256)`.
+
+        The addition or multiplication may result in a value higher than the maximum
+        representable integer.', filename: integer_overflow_mul.sol, function: run(uint256),
+      lineno: 10, title: Integer Overflow, type: Warning}
+    result: True Positive
+  integer_overflow_multitx_multifunc_feasible:
+    bug_type: Integer Overflow
+    elapsed: 2.85202693939209
+    elapsed_str: ' 2.85 seconds'
+    execution_returncode: 0
+    expected_data:
+      bug_type: Integer Overflow
+      has_bug: true
+      ignore: false
+      issues:
+      - {address: 218, code: count -= input, title: Integer Underflow}
+    issues: []
+    result: False Negative
+  integer_overflow_multitx_onefunc_feasible:
+    bug_type: Integer Overflow
+    elapsed: 2.6728227138519287
+    elapsed_str: ' 2.67 seconds'
+    execution_returncode: 0
+    expected_data:
+      bug_type: Integer Overflow
+      has_bug: true
+      ignore: false
+      issues:
+      - {address: 196, code: count -= input, title: Integer Underflow}
+    issues:
+    - {address: 196, code: count -= input, contract: IntegerOverflowMultiTxOneFuncFeasible,
+      debug: 'calldata_IntegerOverflowMultiTxOneFuncFeasible[4]: 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe
+
+        calldata_IntegerOverflowMultiTxOneFuncFeasible[0]: 0xa444f5e900000000000000000000000000000000000000000000000000000000
+
+        calldatasize_IntegerOverflowMultiTxOneFuncFeasible: 0x4
+
+        call_value: 0x0
+
+        ', description: 'A possible integer underflow exists in the function `run(uint256)`.
+
+        The subtraction may result in a value < 0.', filename: integer_overflow_multitx_onefunc_feasible.sol,
+      function: run(uint256), lineno: 16, title: Integer Underflow, type: Warning}
+    result: True Positive
+  integer_overflow_multitx_onefunc_infeasible:
+    bug_type: Integer Overflow
+    elapsed: 2.611389398574829
+    elapsed_str: ' 2.61 seconds'
+    execution_returncode: 0
+    expected_data:
+      bug_type: Integer Overflow
+      has_bug: true
+      ignore: false
+      issues:
+      - {address: 188, code: count -= input, title: Integer Underflow}
+      link: https://github.com/EthereumAnalysisBenchmarks/ethereum-analyzers-suites-runner/wiki/suhabe-integer_overflow_multitex_onefuc_infeasible
+    issues: []
+    result: False Negative
+  integer_overflow_path_1:
+    bug_type: Integer Overflow
+    elapsed: 2.585413694381714
+    elapsed_str: ' 2.59 seconds'
+    execution_returncode: 0
+    expected_data:
+      bug_type: Integer Overflow
+      has_bug: false
+      ignore: false
+      issues: []
+    issues: []
+    result: True Negative
+  integer_overflow_staticarray:
+    bug_type: Integer Overflow
+    elapsed: 2.5667531490325928
+    elapsed_str: ' 2.57 seconds'
+    execution_returncode: 0
+    expected_data:
+      bug_type: Integer Overflow
+      has_bug: true
+      ignore: false
+      issues:
+      - {address: 196, code: count -= input, title: Integer Underflow}
+    issues: []
+    result: False Negative
+  integer_overflow_storageinvariant:
+    bug_type: Integer Overflow
+    elapsed: 2.06058406829834
+    elapsed_str: ' 2.06 seconds'
+    execution_returncode: 0
+    expected_data:
+      benign: true
+      bug_type: Integer Overflow
+      has_bug: true
+      ignore: false
+      issues:
+      - {address: 267, code: balance -= oCredit, title: Integer Underflow}
+      - {address: 418, code: 'credit[msg.sender] += msg.value', title: Integer Overflow}
+      - {address: 434, code: balance += msg.value, title: Integer Overflow}
+      link: https://github.com/EthereumAnalysisBenchmarks/ethereum-analyzers-suites-runner/wiki/suhabe-integer_overflow_storageinvariant
+    issues: []
+    result: False Negative
+  integer_overflow_storagepacking:
+    bug_type: Integer Overflow
+    elapsed: 1.684063196182251
+    elapsed_str: ' 1.68 seconds'
+    execution_returncode: 0
+    expected_data:
+      bug_type: Integer Overflow
+      has_bug: true
+      ignore: false
+      issues:
+      - {address: 267, code: balance -= oCredit, title: Integer Underflow}
+      - {address: 418, code: 'credit[msg.sender] += msg.value', title: Integer Overflow}
+      - {address: 434, code: balance += msg.value, title: Integer Overflow}
+    issues: []
+    result: False Negative
+  reentrancy_dao:
+    bug_type: Callback Effect-Free
+    elapsed: 2.5381438732147217
+    elapsed_str: ' 2.54 seconds'
+    execution_returncode: 0
+    expected_data:
+      bug_type: Callback Effect-Free
+      has_bug: true
+      ignore: false
+      issues:
+      - {address: 247, code: msg.sender.call.value(oCredit)(), title: Message call
+          to external contract}
+    issues:
+    - {address: 247, code: msg.sender.call.value(oCredit)(), contract: ReentrancyDAO,
+      debug: '', description: 'This contract executes a message call to the address
+        of the transaction sender. Generally, it is not recommended to call user-supplied
+        addresses using Solidity''s call() construct. Note that attackers might leverage
+        reentrancy attacks to exploit race conditions or manipulate this contract''s
+        state.', filename: reentrancy_dao.sol, function: withdrawAll(), lineno: 11,
+      title: Message call to external contract, type: Warning}
+    result: True Positive
+  reentrancy_dao_fixed:
+    bug_type: Callback Effect-Free
+    elapsed: 1.7590742111206055
+    elapsed_str: ' 1.76 seconds'
+    execution_returncode: 0
+    expected_data:
+      bug_type: Callback Effect-Free
+      has_bug: false
+      ignore: false
+      issues:
+      - {address: 200, code: balance -= oCredit, title: Integer Underflow}
+      - {address: 315, code: msg.sender.call.value(oCredit)(), title: Message call
+          to external contract}
+      - {address: 407, code: 'credit[msg.sender] += msg.value', title: Integer Overflow}
+      - {address: 423, code: balance += msg.value, title: Integer Overflow}
+    issues:
+    - {address: 315, code: msg.sender.call.value(oCredit)(), contract: ReentrancyDaoFixed,
+      debug: '', description: 'This contract executes a message call to the address
+        of the transaction sender. Generally, it is not recommended to call user-supplied
+        addresses using Solidity''s call() construct. Note that attackers might leverage
+        reentrancy attacks to exploit race conditions or manipulate this contract''s
+        state.', filename: reentrancy_dao_fixed.sol, function: withdrawAll(), lineno: 12,
+      title: Message call to external contract, type: Warning}
+    result: False Positive
+  reentrancy_nostateeffect:
+    bug_type: Callback Effect-Free
+    elapsed: 2.3603837490081787
+    elapsed_str: ' 2.36 seconds'
+    execution_returncode: 0
+    expected_data:
+      bug_type: Callback Effect-Free
+      has_bug: false
+      ignore: false
+      issues:
+      - {address: 261, code: Runner(base).run(param), title: Message call to external
+          contract}
+      link: https://github.com/EthereumAnalysisBenchmarks/ethereum-analyzers-suites-runner/wiki/suhabe-reentrancy_nostateeffect
+    issues:
+    - {address: 261, code: Runner(base).run(param), contract: ReentrancyNoStateEffect,
+      debug: '', description: 'This contract executes a message call to an address
+        provided as a function argument. Generally, it is not recommended to call
+        user-supplied addresses using Solidity''s call() construct. Note that attackers
+        might leverage reentrancy attacks to exploit race conditions or manipulate
+        this contract''s state.', filename: reentrancy_nostateeffect.sol, function: 'run(address,uint256)',
+      lineno: 10, title: Message call to external contract, type: Warning}
+    - {address: 261, code: Runner(base).run(param), contract: ReentrancyNoStateEffect,
+      debug: '', description: "Multiple sends exist in one transaction, try to isolate\
+        \ each external call into its own transaction. As external calls can fail\
+        \ accidentally or deliberately.\nConsecutive calls: \nCall at address: 261\n",
+      filename: reentrancy_nostateeffect.sol, function: 'run(address,uint256)', lineno: 10,
+      title: Multiple Calls, type: Information}
+    result: False Positive
+date: '2018-09-01 15:46:46'
+error_execution: 13
+expected: 21
+ignored_benchmarks: 0
+invalid_execution: 1
+suite: Suhabe
+timed_out: 0
+total_time: 270.29942989349365
+total_time_str: 4 minutes, 30.30 seconds
+unconfigured: 0
+version: v0.18.11

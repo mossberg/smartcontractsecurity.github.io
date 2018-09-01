@@ -1,0 +1,508 @@
+analyzer: Manticore
+benchmark_count: 35
+benchmark_files: [assert_constructor.sol, assert_minimal.sol, assert_multitx_1.sol,
+  assert_multitx_2.sol, assert_require.sol, assert_sym.sol, attribute_store.sol, eth_tx_order_dependence_2.sol,
+  eth_tx_order_dependence_minimal.sol, eth_tx_order_dependence_multitx_1.sol, eth_tx_order_dependence_puzzle.sol,
+  integer_overflow_add.sol, integer_overflow_benign_1.sol, integer_overflow_benign_2.sol,
+  integer_overflow_bytes_param.sol, integer_overflow_dynarray.sol, integer_overflow_mapping_mapping.sol,
+  integer_overflow_mapping_staticarray.sol, integer_overflow_mapping_strkey.sol, integer_overflow_mapping_struct.sol,
+  integer_overflow_mapping_sym_1.sol, integer_overflow_mapping_sym_2.sol, integer_overflow_mapping_word.sol,
+  integer_overflow_minimal.sol, integer_overflow_mul.sol, integer_overflow_multitx_multifunc_feasible.sol,
+  integer_overflow_multitx_onefunc_feasible.sol, integer_overflow_multitx_onefunc_infeasible.sol,
+  integer_overflow_path_1.sol, integer_overflow_staticarray.sol, integer_overflow_storageinvariant.sol,
+  integer_overflow_storagepacking.sol, reentrancy_dao.sol, reentrancy_dao_fixed.sol,
+  reentrancy_nostateeffect.sol]
+benchmark_link: https://github.com/ConsenSys/evm-analyzer-benchmark-suite
+benchmark_subdir: benchmarks
+benchmark_url_dir: https://raw.githubusercontent.com/ConsenSys/evm-analyzer-benchmark-suite/master
+benchmarks:
+  assert_constructor:
+    bug_type: Assertion
+    elapsed: 0.6997413635253906
+    elapsed_str: ' 0.70 seconds'
+    execution_returncode: 0
+    expected_data:
+      bug_type: Assertion
+      has_bug: true
+      ignore: false
+      issues:
+      - {address: 24, code: assert(false), title: INVALID instruction}
+      link: https://github.com/EthereumAnalysisBenchmarks/ethereum-analyzers-suites-runner/wiki/suhabe-assert_constructor
+    issues:
+    - {address: 0, code: assert(false), lineno: 4, title: INVALID instruction}
+    result: True Positive
+  assert_minimal:
+    bug_type: Assertion
+    elapsed: 5.62198805809021
+    elapsed_str: ' 5.62 seconds'
+    execution_returncode: 0
+    expected_data:
+      bug_type: Assertion
+      has_bug: true
+      ignore: false
+      issues:
+      - {address: 96, code: assert(false), title: INVALID instruction}
+      link: https://github.com/EthereumAnalysisBenchmarks/ethereum-analyzers-suites-runner/wiki/suhabe-assert_minimal
+    issues:
+    - {address: 0, code: assert(false), lineno: 4, title: INVALID instruction}
+    result: True Positive
+  assert_multitx_1:
+    bug_type: Assertion
+    elapsed: 20.76062822341919
+    elapsed_str: 20.76 seconds
+    execution_returncode: 0
+    expected_data: {bug_type: Assertion, has_bug: false, ignore: false, run_time: 120.0}
+    issues: []
+    result: True Negative
+  assert_multitx_2:
+    bug_type: Assertion
+    elapsed: 162.88054776191711
+    elapsed_str: 2 minutes, 42.88 seconds
+    execution_returncode: 0
+    expected_data:
+      bug_type: Assertion
+      has_bug: true
+      ignore: false
+      issues:
+      - {address: 161, code: assert(param > 0), title: INVALID instruction}
+      run_time: 120.0
+    issues:
+    - {address: 0, code: assert(param > 0), lineno: 11, title: INVALID instruction}
+    result: True Positive
+  assert_require:
+    bug_type: Assertion
+    elapsed: 19.125347137451172
+    elapsed_str: 19.13 seconds
+    execution_returncode: 0
+    expected_data:
+      bug_type: Assertion
+      has_bug: false
+      ignore: false
+      issues: []
+    issues: []
+    result: True Negative
+  assert_sym:
+    bug_type: Assertion
+    elapsed: 17.01244592666626
+    elapsed_str: 17.01 seconds
+    execution_returncode: 0
+    expected_data:
+      bug_type: Assertion
+      has_bug: true
+      ignore: false
+      issues:
+      - {address: 120, code: assert(param > 0), title: INVALID instruction}
+    issues:
+    - {address: 0, code: assert(param > 0), lineno: 4, title: INVALID instruction}
+    result: True Positive
+  attribute_store:
+    bug_type: Integer Overflow
+    elapsed_str: ignored
+    expected_data:
+      bug_type: Integer Overflow
+      has_bug: false
+      ignore: true
+      issues: []
+      reason: Manticore bug
+    result: Ignored
+  eth_tx_order_dependence_2:
+    bug_type: Eth Tx-Order Dependence
+    elapsed: 24.28591251373291
+    elapsed_str: 24.29 seconds
+    execution_returncode: 0
+    expected_data:
+      bug_type: Eth Tx-Order Dependence
+      has_bug: false
+      ignore: false
+      issues: []
+    issues: []
+    result: True Negative
+  eth_tx_order_dependence_minimal:
+    bug_type: Eth Tx-Order Dependence
+    elapsed_str: 5 minutes,  0.00 seconds
+    expected_data:
+      bug_type: Eth Tx-Order Dependence
+      has_bug: true
+      ignore: false
+      issues:
+      - {address: 96, code: assert(false), title: INVALID instruction}
+      run_time: 300.0
+    result: Too Long
+  eth_tx_order_dependence_multitx_1:
+    bug_type: Eth Tx-Order Dependence
+    elapsed_str: 5 minutes,  0.00 seconds
+    expected_data: {bug_type: Eth Tx-Order Dependence, has_bug: false, ignore: false,
+      run_time: 300.0}
+    result: Too Long
+  eth_tx_order_dependence_puzzle:
+    bug_type: Eth Tx-Order Dependence
+    elapsed: 240.0150032043457
+    elapsed_str: 4 minutes,  0.02 seconds
+    execution_returncode: 0
+    expected_data:
+      bug_type: Eth Tx-Order Dependence
+      has_bug: true
+      ignore: false
+      issues: []
+      run_time: 120.0
+    result: Timed Out
+  integer_overflow_add:
+    bug_type: Integer Overflow
+    elapsed: 37.270506381988525
+    elapsed_str: 37.27 seconds
+    execution_returncode: 0
+    expected_data:
+      bug_type: Integer Overflow
+      has_bug: true
+      ignore: false
+      issues:
+      - {address: 175, code: count += input, title: Unsigned integer overflow at ADD
+          instruction}
+      link: https://github.com/EthereumAnalysisBenchmarks/ethereum-analyzers-suites-runner/wiki/suhabe-integer_overflow_add
+    issues:
+    - {address: 0, code: count += input, lineno: 9, title: Unsigned integer overflow
+        at ADD instruction}
+    result: True Positive
+  integer_overflow_benign_1:
+    bug_type: Integer Overflow
+    elapsed: 36.66159534454346
+    elapsed_str: 36.66 seconds
+    execution_returncode: 0
+    expected_data:
+      bug_type: Integer Overflow
+      has_bug: benign
+      ignore: false
+      issues: []
+      link: https://github.com/EthereumAnalysisBenchmarks/ethereum-analyzers-suites-runner/wiki/suhabe-integer_overflow_benign_1
+    issues: []
+    result: True Negative
+  integer_overflow_benign_2:
+    bug_type: Integer Overflow
+    elapsed: 56.589354276657104
+    elapsed_str: 56.59 seconds
+    execution_returncode: 0
+    expected_data:
+      bug_type: Integer Overflow
+      has_bug: benign
+      ignore: false
+      issues:
+      - {address: 231, code: 'sub(a,b)', title: Unsigned integer overflow at ADD instruction}
+      - {address: 246, code: 'add(res,b)', title: Unsigned integer overflow at ADD
+          instruction}
+      link: https://github.com/EthereumAnalysisBenchmarks/ethereum-analyzers-suites-runner/wiki/suhabe-integer_overflow_benign_2
+      run_time: 30.0
+    issues: []
+    result: True Negative
+  integer_overflow_bytes_param:
+    bug_type: Integer Overflow
+    elapsed: 245.2537100315094
+    elapsed_str: 4 minutes,  5.25 seconds
+    execution_returncode: 0
+    expected_data: {bug_type: Integer Overflow, has_bug: false, ignore: false, run_time: 30.0}
+    result: Timed Out
+  integer_overflow_dynarray:
+    bug_type: Integer Overflow
+    elapsed: 48.35934376716614
+    elapsed_str: 48.36 seconds
+    execution_returncode: 0
+    expected_data:
+      bug_type: Integer Overflow
+      has_bug: false
+      ignore: false
+      issues:
+      - {address: 498, title: Unsigned integer overflow at SET instruction}
+    issues: []
+    result: True Negative
+  integer_overflow_mapping_mapping:
+    bug_type: Integer Overflow
+    elapsed: 20.626301765441895
+    elapsed_str: 20.63 seconds
+    execution_returncode: 0
+    expected_data:
+      bug_type: Integer Overflow
+      has_bug: false
+      ignore: false
+      issues: []
+    issues: []
+    result: True Negative
+  integer_overflow_mapping_staticarray:
+    bug_type: Integer Overflow
+    elapsed: 18.671754598617554
+    elapsed_str: 18.67 seconds
+    execution_returncode: 0
+    expected_data:
+      bug_type: Integer Overflow
+      has_bug: false
+      ignore: false
+      issues: []
+    issues: []
+    result: True Negative
+  integer_overflow_mapping_strkey:
+    bug_type: Integer Overflow
+    elapsed: 240.0288758277893
+    elapsed_str: 4 minutes,  0.03 seconds
+    execution_returncode: 0
+    expected_data: {bug_type: Integer Overflow, has_bug: false, ignore: false, run_time: 35.0}
+    result: Timed Out
+  integer_overflow_mapping_struct:
+    bug_type: Integer Overflow
+    elapsed: 21.540719747543335
+    elapsed_str: 21.54 seconds
+    execution_returncode: 0
+    expected_data: {bug_type: Integer Overflow, has_bug: false, ignore: false}
+    issues: []
+    result: True Negative
+  integer_overflow_mapping_sym_1:
+    bug_type: Integer Overflow
+    elapsed: 20.5446298122406
+    elapsed_str: 20.54 seconds
+    execution_returncode: 0
+    expected_data:
+      bug_type: Integer Overflow
+      has_bug: true
+      ignore: false
+      issues:
+      - {address: 146, code: 'map[k] -= v', title: Unsigned integer overflow at SUB
+          instruction}
+    issues:
+    - {address: 0, code: 'map[k] -= v', lineno: 6, title: Unsigned integer overflow
+        at SUB instruction}
+    result: True Positive
+  integer_overflow_mapping_sym_2:
+    bug_type: Integer Overflow
+    elapsed: 35.18510174751282
+    elapsed_str: 35.19 seconds
+    execution_returncode: 0
+    expected_data:
+      bug_type: Integer Overflow
+      has_bug: false
+      ignore: false
+      issues: []
+    issues: []
+    result: True Negative
+  integer_overflow_mapping_word:
+    bug_type: Integer Overflow
+    elapsed: 16.11388850212097
+    elapsed_str: 16.11 seconds
+    execution_returncode: 0
+    expected_data:
+      bug_type: Integer Overflow
+      has_bug: false
+      ignore: false
+      issues: []
+    issues: []
+    result: True Negative
+  integer_overflow_minimal:
+    bug_type: Integer Overflow
+    elapsed: 37.285229206085205
+    elapsed_str: 37.29 seconds
+    execution_returncode: 0
+    expected_data:
+      bug_type: Integer Overflow
+      has_bug: true
+      ignore: false
+      issues:
+      - {address: 175, code: count -= input, title: Unsigned integer overflow at SUB
+          instruction}
+    issues:
+    - {address: 0, code: count -= input, lineno: 9, title: Unsigned integer overflow
+        at SUB instruction}
+    result: True Positive
+  integer_overflow_mul:
+    bug_type: Integer Overflow
+    elapsed: 47.200403690338135
+    elapsed_str: 47.20 seconds
+    execution_returncode: 0
+    expected_data:
+      bug_type: Integer Overflow
+      has_bug: true
+      ignore: false
+      issues:
+      - {address: 175, code: count *= input, title: Unsigned integer overflow at MUL
+          instruction}
+    issues:
+    - {address: 0, code: count *= input, lineno: 9, title: Unsigned integer overflow
+        at MUL instruction}
+    result: True Positive
+  integer_overflow_multitx_multifunc_feasible:
+    bug_type: Integer Overflow
+    elapsed: 240.02104091644287
+    elapsed_str: 4 minutes,  0.02 seconds
+    execution_returncode: 0
+    expected_data:
+      bug_type: Integer Overflow
+      has_bug: true
+      ignore: false
+      issues:
+      - {address: 219, code: count -= input, title: Unsigned integer overflow at SUB
+          instruction}
+      run_time: 120.0
+    result: Timed Out
+  integer_overflow_multitx_onefunc_feasible:
+    bug_type: Integer Overflow
+    elapsed: 119.32242751121521
+    elapsed_str: 1 minute, 59.32 seconds
+    execution_returncode: 0
+    expected_data:
+      bug_type: Integer Overflow
+      has_bug: true
+      ignore: false
+      issues:
+      - {address: 197, code: count -= input, title: Unsigned integer overflow at SUB
+          instruction}
+    issues:
+    - {address: 0, code: count -= input, lineno: 15, title: Unsigned integer overflow
+        at SUB instruction}
+    result: True Positive
+  integer_overflow_multitx_onefunc_infeasible:
+    bug_type: Integer Overflow
+    elapsed: 40.30164384841919
+    elapsed_str: 40.30 seconds
+    execution_returncode: 0
+    expected_data:
+      bug_type: Integer Overflow
+      has_bug: true
+      ignore: false
+      issues:
+      - {address: 189, code: count -= input, title: Unsigned integer overflow at SUB
+          instruction}
+      link: https://github.com/EthereumAnalysisBenchmarks/ethereum-analyzers-suites-runner/wiki/suhabe-integer_overflow_multitex_onefuc_infeasible
+    issues: []
+    result: False Negative
+  integer_overflow_path_1:
+    bug_type: Integer Overflow
+    elapsed: 52.3116888999939
+    elapsed_str: 52.31 seconds
+    execution_returncode: 0
+    expected_data:
+      bug_type: Integer Overflow
+      has_bug: false
+      ignore: false
+      issues: []
+    issues: []
+    result: True Negative
+  integer_overflow_staticarray:
+    bug_type: Integer Overflow
+    elapsed: 23.961645364761353
+    elapsed_str: 23.96 seconds
+    execution_returncode: 0
+    expected_data:
+      bug_type: Integer Overflow
+      has_bug: true
+      ignore: false
+      issues:
+      - {address: 196, code: count -= input, title: Unsigned integer overflow at SUB
+          instruction}
+    issues: []
+    result: False Negative
+  integer_overflow_storageinvariant:
+    bug_type: Integer Overflow
+    elapsed: 194.35473155975342
+    elapsed_str: 3 minutes, 14.35 seconds
+    execution_returncode: 0
+    expected_data:
+      benign: true
+      bug_type: Integer Overflow
+      has_bug: true
+      ignore: false
+      issues:
+      - {address: 268, code: balance -= oCredit, title: Unsigned integer overflow
+          at SUB instruction}
+      - {address: 419, code: 'credit[msg.sender] += msg.value', title: Unsigned integer
+          overflow at ADD instruction}
+      - {address: 435, code: balance += msg.value, title: Unsigned integer overflow
+          at ADD instruction}
+      link: https://github.com/EthereumAnalysisBenchmarks/ethereum-analyzers-suites-runner/wiki/suhabe-integer_overflow_storageinvariant
+    issues:
+    - {address: 0, code: msg.sender.transfer(oCredit), lineno: 12, title: Reachable
+        ether leak to sender}
+    result: True Positive
+  integer_overflow_storagepacking:
+    bug_type: Integer Overflow
+    elapsed: 14.483597755432129
+    elapsed_str: 14.48 seconds
+    execution_returncode: 0
+    expected_data:
+      bug_type: Integer Overflow
+      has_bug: true
+      ignore: false
+      issues:
+      - {address: 267, code: balance -= oCredit, title: Unsigned integer overflow
+          at SUB instruction}
+      - {address: 419, code: 'credit[msg.sender] += msg.value', title: Unsigned integer
+          overflow at ADD instruction}
+      - {address: 435, code: balance += msg.value, title: Unsigned integer overflow
+          at ADD instruction}
+    issues: []
+    result: False Negative
+  reentrancy_dao:
+    bug_type: Callback Effect-Free
+    elapsed: 150.7761688232422
+    elapsed_str: 2 minutes, 30.78 seconds
+    execution_returncode: 0
+    expected_data:
+      bug_type: Callback Effect-Free
+      has_bug: true
+      ignore: false
+      issues:
+      - {address: 201, code: balance -= oCredit, title: Unsigned integer overflow
+          at SUB instruction}
+      - {address: 247, code: msg.sender.call.value(oCredit)(), title: Message call
+          to external contract}
+      - {address: 332, code: 'credit[msg.sender] = 0', title: State change after external
+          call}
+      - {address: 408, code: 'credit[msg.sender] += msg.value', title: Unsigned integer
+          overflow at ADD instruction}
+      - {address: 424, code: balance += msg.value, title: Unsigned integer overflow
+          at ADD instruction}
+    issues:
+    - {address: 0, code: msg.sender.call.value(oCredit)(), lineno: 10, title: Reachable
+        ether leak to sender}
+    - {address: 0, code: msg.sender.call.value(oCredit)(), lineno: 10, title: Reentrancy
+        multi-million ether bug}
+    result: True Positive
+  reentrancy_dao_fixed:
+    bug_type: Callback Effect-Free
+    elapsed: 151.03715205192566
+    elapsed_str: 2 minutes, 31.04 seconds
+    execution_returncode: 0
+    expected_data:
+      bug_type: Callback Effect-Free
+      has_bug: false
+      ignore: false
+      issues:
+      - {address: 200, code: balance -= oCredit, title: Unsigned integer overflow
+          at SUB instruction}
+      - {address: 315, code: msg.sender.call.value(oCredit)(), title: Message call
+          to external contract}
+      - {address: 408, code: 'credit[msg.sender] += msg.value', title: Unsigned integer
+          overflow at ADD instruction}
+      - {address: 424, code: balance += msg.value, title: Unsigned integer overflow
+          at ADD instruction}
+    issues:
+    - {address: 0, code: msg.sender.call.value(oCredit)(), lineno: 11, title: Reachable
+        ether leak to sender}
+    result: False Positive
+  reentrancy_nostateeffect:
+    bug_type: Callback Effect-Free
+    elapsed_str: errored
+    execution_returncode: 1
+    expected_data:
+      bug_type: Callback Effect-Free
+      has_bug: false
+      ignore: false
+      issues: []
+      link: https://github.com/EthereumAnalysisBenchmarks/ethereum-analyzers-suites-runner/wiki/suhabe-reentrancy_nostateeffect
+      options: [--contract, Benchmark, --detect-all, reentrancy_nostateeffect.sol]
+    result: Errored
+date: '2018-09-01 15:51:18'
+error_execution: 4
+expected: 23
+ignored_benchmarks: 3
+invalid_execution: 1
+suite: Suhabe
+timed_out: 4
+total_time: 1392.984495639801
+total_time_str: 23 minutes, 12.98 seconds
+unconfigured: 0
+version: 0.2.0+ @55c1ed

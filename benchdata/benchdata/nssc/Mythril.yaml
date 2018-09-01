@@ -1,0 +1,820 @@
+analyzer: Mythril
+benchmark_count: 19
+benchmark_files: [honeypots/GiftBox/GiftBox.sol, honeypots/KOTH/KOTH.sol, honeypots/Lottery/Lottery.sol,
+  honeypots/Multiplicator/Multiplicator.sol, honeypots/PrivateBank/PrivateBank.sol,
+  honeypots/VarLoop/VarLoop.sol, incorrect_interface/Alice.sol, incorrect_interface/Bob.sol,
+  integer_overflow/interger_overflow_1.sol, missing_constructor/Missing.sol, missing_constructor/Rubixi_source_code/Rubixi.sol,
+  race_condition/RaceCondition.sol, reentrancy/DAO_source_code/DAO.sol, reentrancy/Reentrancy.sol,
+  reentrancy/ReentrancyExploit.sol, unchecked_external_call/KotET_source_code/KingOfTheEtherThrone.sol,
+  unprotected_function/Unprotected.sol, unprotected_function/WalletLibrary_source_code/WalletLibrary.sol,
+  variable shadowing/inherited_state.sol]
+benchmark_link: https://github.com/trailofbits/not-so-smart-contracts
+benchmark_subdir: ''
+benchmark_url_dir: https://raw.githubusercontent.com/trailofbits/not-so-smart-contracts/master
+benchmarks:
+  honeypots/GiftBox/GiftBox:
+    bug_type: honeypots
+    elapsed: 400.0467848777771
+    elapsed_str: 6 minutes, 40.05 seconds
+    execution_returncode: 0
+    expected_data:
+      bug_type: honeypots
+      has_bug: true
+      ignore: false
+      issues:
+      - {address: 190, title: Integer Overflow}
+      - {address: 470, title: Integer Overflow}
+      - {address: 575, title: Integer Overflow}
+      - {address: 840, code: sha3(pass), title: Integer Overflow}
+      - {address: 853, code: sha3(pass), title: Integer Underflow}
+      - {address: 943, code: msg.sender.transfer(this.balance), title: Ether send}
+      - {address: 1686, code: sender.transfer(this.balance), title: Transaction order
+          dependence}
+      - {address: 1686, code: sender.transfer(this.balance), title: Ether send}
+      - {address: 1819, title: Integer Overflow}
+      - {address: 1833, title: Integer Overflow}
+      run_time: 400.0
+    result: Timed Out
+  honeypots/KOTH/KOTH:
+    benchmark_success: false
+    bug_type: honeypots
+    elapsed: 4.4352126121521
+    elapsed_str: ' 4.44 seconds'
+    execution_returncode: 0
+    expected_data:
+      bug_type: honeypots
+      has_bug: true
+      ignore: false
+      issues:
+      - {address: 428, title: Ether send}
+      - {address: 428, title: Multiple Calls}
+    issues:
+    - {address: 428, code: msg.sender.transfer(this.balance), contract: CEOThrone,
+      debug: 'SOLVER OUTPUT:
+
+        caller: 0x0
+
+        calldata_CEOThrone[0]: 0x3ccfd60b00000000000000000000000000000000000000000000000000000000
+
+        calldatasize_CEOThrone: 0x4
+
+        call_value: 0x0
+
+        ', description: 'In the function `withdraw()` a non-zero amount of Ether is
+        sent to msg.sender.
+
+        It seems that this function can be called without restrictions.', filename: honeypots/KOTH/KOTH.sol,
+      function: withdraw(), lineno: 29, title: Ether send, type: Warning}
+    - {address: 428, code: msg.sender.transfer(this.balance), contract: CEOThrone,
+      debug: '', description: "Multiple sends exist in one transaction, try to isolate\
+        \ each external call into its own transaction. As external calls can fail\
+        \ accidentally or deliberately.\nConsecutive calls: \nCall at address: 428\n",
+      filename: honeypots/KOTH/KOTH.sol, function: withdraw(), lineno: 29, title: Multiple
+        Calls, type: Information}
+    result: True Positive
+  honeypots/Lottery/Lottery:
+    bug_type: honeypots
+    elapsed: 400.04447865486145
+    elapsed_str: 6 minutes, 40.04 seconds
+    execution_returncode: 0
+    expected_data:
+      bug_type: honeypots
+      has_bug: true
+      ignore: false
+      issues:
+      - {address: 1204, code: block.number - 1, title: Integer Underflow}
+      - {address: 1242, code: block.difficulty*(uint)(block.coinbase), title: Integer
+          Overflow}
+      - {address: 1254, code: tx.gasprice * 7, title: Integer Overflow}
+      run_time: 400.0
+    result: Timed Out
+  honeypots/Multiplicator/Multiplicator:
+    benchmark_success: false
+    bug_type: honeypots
+    elapsed: 11.234904289245605
+    elapsed_str: 11.23 seconds
+    execution_returncode: 0
+    expected_data:
+      bug_type: honeypots
+      has_bug: true
+      ignore: false
+      issues:
+      - {address: 345, title: Ether send}
+      - {address: 345, title: Multiple Calls}
+      - {address: 567, title: Ether send}
+      - {address: 567, title: Mutiple Calls}
+    issues:
+    - {address: 345, code: adr.transfer(this.balance+msg.value), contract: Multiplicator,
+      debug: 'SOLVER OUTPUT:
+
+        call_value: 0x0
+
+        balance_at_1461501637330902918203684832716283019655932542975 &
+
+        690874137325654850603611: 0x0
+
+        calldata_Multiplicator[0]: 0x1ac9f70d00000000000000000000000000000000000000000000000000000000
+
+        calldatasize_Multiplicator: 0x4
+
+        ', description: 'In the function `multiplicate(address)` a non-zero amount
+        of Ether is sent to an address taken from function arguments.
+
+        It seems that this function can be called without restrictions.', filename: honeypots/Multiplicator/Multiplicator.sol,
+      function: multiplicate(address), lineno: 22, title: Ether send, type: Warning}
+    - {address: 345, code: adr.transfer(this.balance+msg.value), contract: Multiplicator,
+      debug: '', description: "Multiple sends exist in one transaction, try to isolate\
+        \ each external call into its own transaction. As external calls can fail\
+        \ accidentally or deliberately.\nConsecutive calls: \nCall at address: 345\n\
+        Call at address: 567\n", filename: honeypots/Multiplicator/Multiplicator.sol,
+      function: multiplicate(address), lineno: 22, title: Multiple Calls, type: Information}
+    - {address: 567, code: Owner.transfer(this.balance), contract: Multiplicator,
+      debug: 'SOLVER OUTPUT:
+
+        caller: 0x0
+
+        calldata_Multiplicator[0]: 0x3ccfd60b00000000000000000000000000000000000000000000000000000000
+
+        calldatasize_Multiplicator: 0x4
+
+        ', description: 'In the function `withdraw()` a non-zero amount of Ether is
+        sent to msg.sender.
+
+        It seems that this function can be called without restrictions.', filename: honeypots/Multiplicator/Multiplicator.sol,
+      function: withdraw(), lineno: 14, title: Ether send, type: Warning}
+    - {address: 567, code: Owner.transfer(this.balance), contract: Multiplicator,
+      debug: '', description: "Multiple sends exist in one transaction, try to isolate\
+        \ each external call into its own transaction. As external calls can fail\
+        \ accidentally or deliberately.\nConsecutive calls: \nCall at address: 345\n\
+        Call at address: 567\n", filename: honeypots/Multiplicator/Multiplicator.sol,
+      function: withdraw(), lineno: 14, title: Multiple Calls, type: Information}
+    result: True Positive
+  honeypots/PrivateBank/PrivateBank:
+    bug_type: honeypots
+    elapsed: 224.33011484146118
+    elapsed_str: 3 minutes, 44.33 seconds
+    execution_returncode: 0
+    expected_data:
+      bug_type: honeypots
+      has_bug: true
+      ignore: false
+      issues: []
+      run_time: 400.0
+    issues:
+    - {address: 157, code: "function AddMessage(address _adr,uint _val,string _data)\n\
+        \    public\n    {\n        LastMsg.Sender = _adr;\n        LastMsg.Time =\
+        \ now;\n        LastMsg.Val = _val;\n        LastMsg.Data = _data;\n     \
+        \   History.push(LastMsg);\n    }", contract: Log, debug: 'calldata_Log[68]:
+        0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffc
+
+        calldata_Log[0]: 0x4c2f04a400000000000000000000000000000000000000000000000000000000
+
+        calldatasize_Log: 0x4
+
+        call_value: 0x0
+
+        ', description: 'A possible integer overflow exists in the function `AddMessage(address,uint256,string)`.
+
+        The addition or multiplication may result in a value higher than the maximum
+        representable integer.', filename: honeypots/PrivateBank/PrivateBank.sol,
+      function: 'AddMessage(address,uint256,string)', lineno: 59, title: Integer Overflow,
+      type: Warning}
+    - {address: 426, code: msg.sender.call.value(_am)(), contract: Private_Bank, debug: 'SOLVER
+        OUTPUT:
+
+        calldata_Private_Bank[0]: 0x9ffa071100000000000000000000000000000000000000000000000000000000
+
+        calldatasize_Private_Bank: 0x4
+
+        calldata_Private_Bank[4]: 0x0
+
+        call_value: 0x0
+
+        ', description: 'In the function `CashOut(uint256)` a non-zero amount of Ether
+        is sent to msg.sender.
+
+        It seems that this function can be called without restrictions.', filename: honeypots/PrivateBank/PrivateBank.sol,
+      function: CashOut(uint256), lineno: 32, title: Ether send, type: Warning}
+    - {address: 426, code: msg.sender.call.value(_am)(), contract: Private_Bank, debug: '',
+      description: 'This contract executes a message call to the address of the transaction
+        sender. Generally, it is not recommended to call user-supplied addresses using
+        Solidity''s call() construct. Note that attackers might leverage reentrancy
+        attacks to exploit race conditions or manipulate this contract''s state.',
+      filename: honeypots/PrivateBank/PrivateBank.sol, function: CashOut(uint256),
+      lineno: 32, title: Message call to external contract, type: Warning}
+    - {address: 426, code: msg.sender.call.value(_am)(), contract: Private_Bank, debug: '',
+      description: "Multiple sends exist in one transaction, try to isolate each external\
+        \ call into its own transaction. As external calls can fail accidentally or\
+        \ deliberately.\nConsecutive calls: \nCall at address: 768\n", filename: honeypots/PrivateBank/PrivateBank.sol,
+      function: CashOut(uint256), lineno: 32, title: Multiple Calls, type: Information}
+    - {address: 510, code: 'balances[msg.sender]-=_am', contract: Private_Bank, debug: '',
+      description: The contract account state is changed after an external call. Consider
+        that the called contract could re-enter the function before this state change
+        takes place. This can lead to business logic vulnerabilities., filename: honeypots/PrivateBank/PrivateBank.sol,
+      function: CashOut(uint256), lineno: 34, title: State change after external call,
+      type: Warning}
+    - {address: 768, code: 'TransferLog.AddMessage(msg.sender,_am,"CashOut")', contract: Private_Bank,
+      debug: '', description: This contract executes a message call to to another
+        contract. Make sure that the called contract is trusted and does not execute
+        user-supplied code., filename: honeypots/PrivateBank/PrivateBank.sol, function: CashOut(uint256),
+      lineno: 35, title: Message call to external contract, type: Informational}
+    - {address: 768, code: 'TransferLog.AddMessage(msg.sender,_am,"CashOut")', contract: Private_Bank,
+      debug: '', description: "Multiple sends exist in one transaction, try to isolate\
+        \ each external call into its own transaction. As external calls can fail\
+        \ accidentally or deliberately.\nConsecutive calls: \nCall at address: 426\n\
+        Call at address: 768\nCall at address: 1138\n", filename: honeypots/PrivateBank/PrivateBank.sol,
+      function: CashOut(uint256), lineno: 35, title: Multiple Calls, type: Information}
+    - {address: 804, code: 'Message[] public History', contract: Log, debug: 'The
+        exception is triggered under the following conditions:
+
+
+        calldata_Log[4]: 0x1
+
+        calldata_Log[0]: 0xa21f036800000000000000000000000000000000000000000000000000000000
+
+        calldatasize_Log: 0x4
+
+        call_value: 0x0
+
+        ', description: 'A reachable exception (opcode 0xfe) has been detected. This
+        can be caused by type errors, division by zero, out-of-bounds array access,
+        or assert violations. This is acceptable in most situations. Note however
+        that `assert()` should only be used to check invariants. Use `require()` for
+        regular input checking. ', filename: honeypots/PrivateBank/PrivateBank.sol,
+      function: History(uint256), lineno: 55, title: Exception state, type: Informational}
+    - {address: 874, code: 'balances[msg.sender]+=msg.value', contract: Private_Bank,
+      debug: 'call_value: 0x8ee310b1cba424402000003020038090a0220000010000040000000000000003
+
+        calldata_Private_Bank[4]: 0x2e342143e6d00000000000000000000000000000000000000000000000000000
+
+        calldata_Private_Bank[0]: 0xed21248c00000000000000000000000000000000000000000000000000000000
+
+        calldatasize_Private_Bank: 0x4
+
+        ', description: 'A possible integer overflow exists in the function `Deposit()`.
+
+        The addition or multiplication may result in a value higher than the maximum
+        representable integer.', filename: honeypots/PrivateBank/PrivateBank.sol,
+      function: Deposit(), lineno: 22, title: Integer Overflow, type: Warning}
+    - {address: 1105, code: "contract Log \n{\n   \n    struct Message\n    {\n  \
+        \      address Sender;\n        string  Data;\n        uint Val;\n       \
+        \ uint  Time;\n    }\n    \n    Message[] public History;\n    \n    Message\
+        \ LastMsg;\n    \n    function AddMessage(address _adr,uint _val,string _data)\n\
+        \    public\n    {\n        LastMsg.Sender = _adr;\n        LastMsg.Time =\
+        \ now;\n        LastMsg.Val = _val;\n        LastMsg.Data = _data;\n     \
+        \   History.push(LastMsg);\n    }\n}", contract: Log, debug: 'calldata_Log[4
+        + calldata_Log[68]]: 0x8000000000000000000000000000000000000000000000000000000000000000
+
+        calldata_Log[0]: 0x4c2f04a400000000000000000000000000000000000000000000000000000000
+
+        calldatasize_Log: 0x4
+
+        call_value: 0x0
+
+        ', description: 'A possible integer overflow exists in the function `AddMessage(address,uint256,string)`.
+
+        The addition or multiplication may result in a value higher than the maximum
+        representable integer.', filename: honeypots/PrivateBank/PrivateBank.sol,
+      function: 'AddMessage(address,uint256,string)', lineno: 44, title: Integer Overflow,
+      type: Warning}
+    - {address: 1119, code: "contract Log \n{\n   \n    struct Message\n    {\n  \
+        \      address Sender;\n        string  Data;\n        uint Val;\n       \
+        \ uint  Time;\n    }\n    \n    Message[] public History;\n    \n    Message\
+        \ LastMsg;\n    \n    function AddMessage(address _adr,uint _val,string _data)\n\
+        \    public\n    {\n        LastMsg.Sender = _adr;\n        LastMsg.Time =\
+        \ now;\n        LastMsg.Val = _val;\n        LastMsg.Data = _data;\n     \
+        \   History.push(LastMsg);\n    }\n}", contract: Log, debug: 'calldata_Log[4
+        + calldata_Log[68]]: 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe0
+
+        calldata_Log[0]: 0x4c2f04a400000000000000000000000000000000000000000000000000000000
+
+        calldatasize_Log: 0x4
+
+        call_value: 0x0
+
+        ', description: 'A possible integer overflow exists in the function `AddMessage(address,uint256,string)`.
+
+        The addition or multiplication may result in a value higher than the maximum
+        representable integer.', filename: honeypots/PrivateBank/PrivateBank.sol,
+      function: 'AddMessage(address,uint256,string)', lineno: 44, title: Integer Overflow,
+      type: Warning}
+    - {address: 1138, code: 'TransferLog.AddMessage(msg.sender,msg.value,"Deposit")',
+      contract: Private_Bank, debug: '', description: This contract executes a message
+        call to to another contract. Make sure that the called contract is trusted
+        and does not execute user-supplied code., filename: honeypots/PrivateBank/PrivateBank.sol,
+      function: Deposit(), lineno: 23, title: Message call to external contract, type: Informational}
+    - {address: 1138, code: 'TransferLog.AddMessage(msg.sender,msg.value,"Deposit")',
+      contract: Private_Bank, debug: '', description: "Multiple sends exist in one\
+        \ transaction, try to isolate each external call into its own transaction.\
+        \ As external calls can fail accidentally or deliberately.\nConsecutive calls:\
+        \ \nCall at address: 426\nCall at address: 768\nCall at address: 1138\n",
+      filename: honeypots/PrivateBank/PrivateBank.sol, function: Deposit(), lineno: 23,
+      title: Multiple Calls, type: Information}
+    result: Wrong Vulnerability
+  honeypots/VarLoop/VarLoop:
+    benchmark_success: false
+    bug_type: honeypots
+    elapsed: 8.11163067817688
+    elapsed_str: ' 8.11 seconds'
+    execution_returncode: 0
+    expected_data:
+      bug_type: honeypots
+      has_bug: true
+      ignore: false
+      issues:
+      - {address: 293, title: Ether send}
+      - {address: 293, title: Multiple Calls}
+      - {address: 352, title: Integer Overflow}
+      - {address: 464, title: Ether send}
+      - {address: 464, title: Multiple Calls}
+    issues:
+    - {address: 293, code: owner.transfer(this.balance), contract: Test1, debug: 'SOLVER
+        OUTPUT:
+
+        caller: 0x0
+
+        calldata_Test1[0]: 0x3ccfd60b00000000000000000000000000000000000000000000000000000000
+
+        calldatasize_Test1: 0x4
+
+        ', description: 'In the function `withdraw()` a non-zero amount of Ether is
+        sent to msg.sender.
+
+        It seems that this function can be called without restrictions.', filename: honeypots/VarLoop/VarLoop.sol,
+      function: withdraw(), lineno: 12, title: Ether send, type: Warning}
+    - {address: 293, code: owner.transfer(this.balance), contract: Test1, debug: '',
+      description: "Multiple sends exist in one transaction, try to isolate each external\
+        \ call into its own transaction. As external calls can fail accidentally or\
+        \ deliberately.\nConsecutive calls: \nCall at address: 293\nCall at address:\
+        \ 464\nCall at address: 464\nCall at address: 464\nCall at address: 464\n",
+      filename: honeypots/VarLoop/VarLoop.sol, function: withdraw(), lineno: 12, title: Multiple
+        Calls, type: Information}
+    - {address: 352, code: msg.value*2, contract: Test1, debug: 'call_value: 0x8000000000000000000000000000000000000000000000000000000000000000
+
+        calldata_Test1[0]: 0xa163a62400000000000000000000000000000000000000000000000000000000
+
+        calldatasize_Test1: 0x4
+
+        ', description: 'A possible integer overflow exists in the function `Test()`.
+
+        The addition or multiplication may result in a value higher than the maximum
+        representable integer.', filename: honeypots/VarLoop/VarLoop.sol, function: Test(),
+      lineno: 26, title: Integer Overflow, type: Warning}
+    - {address: 464, code: msg.sender.transfer(i2), contract: Test1, debug: 'SOLVER
+        OUTPUT:
+
+        call_value: 0x8000000000000000000000000000000000000000000000000000000000000001
+
+        calldata_Test1[0]: 0xa163a62400000000000000000000000000000000000000000000000000000000
+
+        calldatasize_Test1: 0x4
+
+        ', description: 'In the function `Test()` a non-zero amount of Ether is sent
+        to msg.sender.
+
+        It seems that this function can be called without restrictions.', filename: honeypots/VarLoop/VarLoop.sol,
+      function: Test(), lineno: 36, title: Ether send, type: Warning}
+    - {address: 464, code: msg.sender.transfer(i2), contract: Test1, debug: '', description: "Multiple\
+        \ sends exist in one transaction, try to isolate each external call into its\
+        \ own transaction. As external calls can fail accidentally or deliberately.\n\
+        Consecutive calls: \nCall at address: 293\nCall at address: 464\nCall at address:\
+        \ 464\nCall at address: 464\nCall at address: 464\n", filename: honeypots/VarLoop/VarLoop.sol,
+      function: Test(), lineno: 36, title: Multiple Calls, type: Information}
+    result: True Positive
+  incorrect_interface/Alice:
+    bug_type: Incorrect Interface
+    elapsed: 8.723693370819092
+    elapsed_str: ' 8.72 seconds'
+    execution_returncode: 0
+    expected_data:
+      bug_type: Incorrect Interface
+      has_bug: true
+      ignore: false
+      issues: []
+    issues: []
+    result: False Negative
+  incorrect_interface/Bob:
+    benchmark_success: false
+    bug_type: Incorrect Interface
+    elapsed: 5.259728670120239
+    elapsed_str: ' 5.26 seconds'
+    execution_returncode: 0
+    expected_data:
+      bug_type: Incorrect Interface
+      has_bug: true
+      ignore: false
+      issues:
+      - {address: 330, title: Message call to external contract}
+      - {address: 330, title: Multiple Calls}
+      - {address: 469, code: c.set_fixed(42), title: Message call to external contract}
+      - {address: 469, title: Multiple Calls}
+    issues:
+    - {address: 330, code: c.set(42), contract: Bob, debug: '', description: 'This
+        contract executes a message call to an address provided as a function argument.
+        Generally, it is not recommended to call user-supplied addresses using Solidity''s
+        call() construct. Note that attackers might leverage reentrancy attacks to
+        exploit race conditions or manipulate this contract''s state.', filename: incorrect_interface/Bob.sol,
+      function: set(address), lineno: 11, title: Message call to external contract,
+      type: Warning}
+    - {address: 330, code: c.set(42), contract: Bob, debug: '', description: "Multiple\
+        \ sends exist in one transaction, try to isolate each external call into its\
+        \ own transaction. As external calls can fail accidentally or deliberately.\n\
+        Consecutive calls: \nCall at address: 330\nCall at address: 469\n", filename: incorrect_interface/Bob.sol,
+      function: set(address), lineno: 11, title: Multiple Calls, type: Information}
+    - {address: 469, code: c.set_fixed(42), contract: Bob, debug: '', description: 'This
+        contract executes a message call to an address provided as a function argument.
+        Generally, it is not recommended to call user-supplied addresses using Solidity''s
+        call() construct. Note that attackers might leverage reentrancy attacks to
+        exploit race conditions or manipulate this contract''s state.', filename: incorrect_interface/Bob.sol,
+      function: set_fixed(address), lineno: 15, title: Message call to external contract,
+      type: Warning}
+    - {address: 469, code: c.set_fixed(42), contract: Bob, debug: '', description: "Multiple\
+        \ sends exist in one transaction, try to isolate each external call into its\
+        \ own transaction. As external calls can fail accidentally or deliberately.\n\
+        Consecutive calls: \nCall at address: 330\nCall at address: 469\n", filename: incorrect_interface/Bob.sol,
+      function: set_fixed(address), lineno: 15, title: Multiple Calls, type: Information}
+    result: True Positive
+  integer_overflow/interger_overflow_1:
+    benchmark_success: false
+    bug_type: Integer Overflow
+    elapsed: 5.545603513717651
+    elapsed_str: ' 5.55 seconds'
+    execution_returncode: 0
+    expected_data:
+      bug_type: Integer Overflow
+      has_bug: true
+      ignore: false
+      issues:
+      - {address: 229, code: sellerBalance += value, title: Integer Overflow}
+    issues:
+    - {address: 229, code: sellerBalance += value, contract: Overflow, debug: 'calldata_Overflow[4]:
+        0x8000000000000000000000000000000000000000000000000000000000000000
+
+        calldata_Overflow[0]: 0x1003e2d200000000000000000000000000000000000000000000000000000000
+
+        calldatasize_Overflow: 0x4
+
+        call_value: 0x0
+
+        ', description: 'A possible integer overflow exists in the function `add(uint256)`.
+
+        The addition or multiplication may result in a value higher than the maximum
+        representable integer.', filename: integer_overflow/interger_overflow_1.sol,
+      function: add(uint256), lineno: 7, title: Integer Overflow, type: Warning}
+    result: True Positive
+  missing_constructor/Missing:
+    benchmark_success: false
+    bug_type: Missing Constructor
+    elapsed: 2.007488250732422
+    elapsed_str: ' 2.01 seconds'
+    execution_returncode: 0
+    expected_data:
+      bug_type: Missing Constructor
+      has_bug: true
+      ignore: false
+      issues:
+      - {address: 388, code: owner.transfer(this.balance), title: Ether send}
+    issues:
+    - {address: 388, code: owner.transfer(this.balance), contract: Missing, debug: 'SOLVER
+        OUTPUT:
+
+        caller: 0x0
+
+        calldata_Missing[0]: 0x3ccfd60b00000000000000000000000000000000000000000000000000000000
+
+        calldatasize_Missing: 0x4
+
+        call_value: 0x0
+
+        ', description: 'In the function `withdraw()` a non-zero amount of Ether is
+        sent to msg.sender.
+
+        It seems that this function can be called without restrictions.', filename: missing_constructor/Missing.sol,
+      function: withdraw(), lineno: 23, title: Ether send, type: Warning}
+    result: True Positive
+  missing_constructor/Rubixi_source_code/Rubixi:
+    bug_type: Missing Constructor
+    elapsed_str: ignored
+    expected_data:
+      bug_type: Missing Constructor
+      has_bug: true
+      ignore: true
+      issues:
+      - {address: 388, code: owner.transfer(this.balance), title: Ether send}
+      - {address: 388, code: owner.transfer(this.balance), title: Transaction order
+          dependence}
+      reason: 'solc doesn''t compile it - issue #15'
+    result: Ignored
+  race_condition/RaceCondition:
+    benchmark_success: false
+    bug_type: Missing Constructor
+    elapsed: 11.292945623397827
+    elapsed_str: 11.29 seconds
+    execution_returncode: 0
+    expected_data:
+      bug_type: Missing Constructor
+      has_bug: true
+      ignore: false
+      issues:
+      - {address: 623, code: 'token.transferFrom(msg.sender, owner, price)', title: Message
+          call to external contract}
+      - {address: 686, code: price = new_price, title: State change after external
+          call}
+    issues:
+    - {address: 623, code: 'token.transferFrom(msg.sender, owner, price)', contract: RaceCondition,
+      debug: '', description: This contract executes a message call to to another
+        contract. Make sure that the called contract is trusted and does not execute
+        user-supplied code., filename: race_condition/RaceCondition.sol, function: buy(uint256),
+      lineno: 39, title: Message call to external contract, type: Informational}
+    - {address: 623, code: 'token.transferFrom(msg.sender, owner, price)', contract: RaceCondition,
+      debug: '', description: "Multiple sends exist in one transaction, try to isolate\
+        \ each external call into its own transaction. As external calls can fail\
+        \ accidentally or deliberately.\nConsecutive calls: \nCall at address: 623\n",
+      filename: race_condition/RaceCondition.sol, function: buy(uint256), lineno: 39,
+      title: Multiple Calls, type: Information}
+    result: True Positive
+  reentrancy/DAO_source_code/DAO:
+    bug_type: Reentrancy
+    elapsed_str: ignored
+    expected_data: {bug_type: Reentrancy, has_bug: true, ignore: true, reason: 'solc
+        doesn''t compile it - issue #14'}
+    result: Ignored
+  reentrancy/Reentrancy:
+    benchmark_success: false
+    bug_type: Reentrancy
+    elapsed: 8.875849962234497
+    elapsed_str: ' 8.88 seconds'
+    execution_returncode: 0
+    expected_data:
+      bug_type: Reentrancy
+      has_bug: true
+      ignore: false
+      issues:
+      - {address: 455, title: Ether send}
+      - {address: 455, title: Message call to external contract}
+      - {address: 455, title: Multiple Calls}
+      - {address: 575, title: Ether send}
+      - {address: 575, title: Message call to external contract}
+      - {address: 575, title: Mutiple Calls}
+      - {address: 729, title: Integer Overflow}
+      - {address: 848, title: Ether send}
+      - {address: 848, title: Ether send}
+    issues:
+    - {address: 455, code: msg.sender.call.value(amount)(), contract: Reentrance,
+      debug: 'SOLVER OUTPUT:
+
+        calldata_Reentrance[0]: 0x1b0ca26a00000000000000000000000000000000000000000000000000000000
+
+        calldatasize_Reentrance: 0x4
+
+        call_value: 0x0
+
+        ', description: 'In the function `withdrawBalance_fixed()` a non-zero amount
+        of Ether is sent to msg.sender.
+
+        It seems that this function can be called without restrictions.', filename: reentrancy/Reentrancy.sol,
+      function: withdrawBalance_fixed(), lineno: 28, title: Ether send, type: Warning}
+    - {address: 455, code: msg.sender.call.value(amount)(), contract: Reentrance,
+      debug: '', description: 'This contract executes a message call to the address
+        of the transaction sender. Generally, it is not recommended to call user-supplied
+        addresses using Solidity''s call() construct. Note that attackers might leverage
+        reentrancy attacks to exploit race conditions or manipulate this contract''s
+        state.', filename: reentrancy/Reentrancy.sol, function: withdrawBalance_fixed(),
+      lineno: 28, title: Message call to external contract, type: Warning}
+    - {address: 455, code: msg.sender.call.value(amount)(), contract: Reentrance,
+      debug: '', description: "Multiple sends exist in one transaction, try to isolate\
+        \ each external call into its own transaction. As external calls can fail\
+        \ accidentally or deliberately.\nConsecutive calls: \nCall at address: 455\n\
+        Call at address: 575\nCall at address: 848\n", filename: reentrancy/Reentrancy.sol,
+      function: withdrawBalance_fixed(), lineno: 28, title: Multiple Calls, type: Information}
+    - {address: 575, code: 'msg.sender.call.value(userBalance[msg.sender])()', contract: Reentrance,
+      debug: 'SOLVER OUTPUT:
+
+        calldata_Reentrance[0]: 0x5fd8c71000000000000000000000000000000000000000000000000000000000
+
+        calldatasize_Reentrance: 0x4
+
+        call_value: 0x0
+
+        ', description: 'In the function `withdrawBalance()` a non-zero amount of
+        Ether is sent to msg.sender.
+
+        It seems that this function can be called without restrictions.', filename: reentrancy/Reentrancy.sol,
+      function: withdrawBalance(), lineno: 17, title: Ether send, type: Warning}
+    - {address: 575, code: 'msg.sender.call.value(userBalance[msg.sender])()', contract: Reentrance,
+      debug: '', description: 'This contract executes a message call to the address
+        of the transaction sender. Generally, it is not recommended to call user-supplied
+        addresses using Solidity''s call() construct. Note that attackers might leverage
+        reentrancy attacks to exploit race conditions or manipulate this contract''s
+        state.', filename: reentrancy/Reentrancy.sol, function: withdrawBalance(),
+      lineno: 17, title: Message call to external contract, type: Warning}
+    - {address: 575, code: 'msg.sender.call.value(userBalance[msg.sender])()', contract: Reentrance,
+      debug: '', description: "Multiple sends exist in one transaction, try to isolate\
+        \ each external call into its own transaction. As external calls can fail\
+        \ accidentally or deliberately.\nConsecutive calls: \nCall at address: 455\n\
+        Call at address: 575\nCall at address: 848\n", filename: reentrancy/Reentrancy.sol,
+      function: withdrawBalance(), lineno: 17, title: Multiple Calls, type: Information}
+    - {address: 729, code: 'userBalance[msg.sender] += msg.value', contract: Reentrance,
+      debug: 'call_value: 0x8000000000000000000000000000000000000000000000000000000000000000
+
+        calldata_Reentrance[0]: 0xc0e317fb00000000000000000000000000000000000000000000000000000000
+
+        calldatasize_Reentrance: 0x4
+
+        ', description: 'A possible integer overflow exists in the function `addToBalance()`.
+
+        The addition or multiplication may result in a value higher than the maximum
+        representable integer.', filename: reentrancy/Reentrancy.sol, function: addToBalance(),
+      lineno: 11, title: Integer Overflow, type: Warning}
+    - {address: 848, code: 'msg.sender.transfer(userBalance[msg.sender])', contract: Reentrance,
+      debug: 'SOLVER OUTPUT:
+
+        calldata_Reentrance[0]: 0xc6dd98e900000000000000000000000000000000000000000000000000000000
+
+        calldatasize_Reentrance: 0x4
+
+        call_value: 0x0
+
+        ', description: 'In the function `withdrawBalance_fixed_2()` a non-zero amount
+        of Ether is sent to msg.sender.
+
+        It seems that this function can be called without restrictions.', filename: reentrancy/Reentrancy.sol,
+      function: withdrawBalance_fixed_2(), lineno: 38, title: Ether send, type: Warning}
+    - {address: 848, code: 'msg.sender.transfer(userBalance[msg.sender])', contract: Reentrance,
+      debug: '', description: "Multiple sends exist in one transaction, try to isolate\
+        \ each external call into its own transaction. As external calls can fail\
+        \ accidentally or deliberately.\nConsecutive calls: \nCall at address: 455\n\
+        Call at address: 575\nCall at address: 848\n", filename: reentrancy/Reentrancy.sol,
+      function: withdrawBalance_fixed_2(), lineno: 38, title: Multiple Calls, type: Information}
+    result: True Positive
+  reentrancy/ReentrancyExploit:
+    benchmark_success: false
+    bug_type: Reentrancy
+    elapsed: 12.419822931289673
+    elapsed_str: 12.42 seconds
+    execution_returncode: 0
+    expected_data:
+      bug_type: Reentrancy
+      has_bug: true
+      ignore: false
+      issues:
+      - {address: 369, title: Message call to external contract}
+      - {address: 369, title: Transaction order dependence}
+      - {address: 975, title: Message call to external contract}
+      - {address: 975, title: Transaction order dependence}
+      - {address: 1106, title: Unchecked SUICIDE}
+      - {address: 1376, title: Message call to external contract}
+    issues:
+    - {address: 369, code: vulnerable_contract.call(bytes4(sha3("withdrawBalance()"))),
+      contract: ReentranceExploit, debug: '', description: 'This contract executes
+        a message call to an address provided as a function argument. Generally, it
+        is not recommended to call user-supplied addresses using Solidity''s call()
+        construct. Note that attackers might leverage reentrancy attacks to exploit
+        race conditions or manipulate this contract''s state.', filename: reentrancy/ReentrancyExploit.sol,
+      function: fallback, lineno: 31, title: Message call to external contract, type: Warning}
+    - {address: 975, code: vulnerable_contract.call(bytes4(sha3("withdrawBalance()"))),
+      contract: ReentranceExploit, debug: '', description: 'This contract executes
+        a message call to an address provided as a function argument. Generally, it
+        is not recommended to call user-supplied addresses using Solidity''s call()
+        construct. Note that attackers might leverage reentrancy attacks to exploit
+        race conditions or manipulate this contract''s state.', filename: reentrancy/ReentrancyExploit.sol,
+      function: launch_attack(), lineno: 22, title: Message call to external contract,
+      type: Warning}
+    - {address: 1106, code: suicide(owner), contract: ReentranceExploit, debug: 'SOLVER
+        OUTPUT:
+
+        calldata_ReentranceExploit[0]: 0xb802926900000000000000000000000000000000000000000000000000000000
+
+        calldatasize_ReentranceExploit: 0x4
+
+        call_value: 0x0
+
+        ', description: 'The function `get_money()` executes the SUICIDE instruction.
+        The remaining Ether is sent to the caller''s address.
+
+
+        It seems that this function can be called without restrictions.', filename: reentrancy/ReentrancyExploit.sol,
+      function: get_money(), lineno: 36, title: Unchecked SUICIDE, type: Warning}
+    - {address: 1376, code: vulnerable_contract.call.value(msg.value)(bytes4(sha3("addToBalance()"))),
+      contract: ReentranceExploit, debug: 'SOLVER OUTPUT:
+
+        calldata_ReentranceExploit[0]: 0xf340fa0100000000000000000000000000000000000000000000000000000000
+
+        calldatasize_ReentranceExploit: 0x4
+
+        ', description: 'In the function `deposit(address)` a non-zero amount of Ether
+        is sent to an address taken from function arguments.
+
+        It seems that this function can be called without restrictions.', filename: reentrancy/ReentrancyExploit.sol,
+      function: deposit(address), lineno: 15, title: Ether send, type: Warning}
+    - {address: 1376, code: vulnerable_contract.call.value(msg.value)(bytes4(sha3("addToBalance()"))),
+      contract: ReentranceExploit, debug: '', description: 'This contract executes
+        a message call to an address provided as a function argument. Generally, it
+        is not recommended to call user-supplied addresses using Solidity''s call()
+        construct. Note that attackers might leverage reentrancy attacks to exploit
+        race conditions or manipulate this contract''s state.', filename: reentrancy/ReentrancyExploit.sol,
+      function: deposit(address), lineno: 15, title: Message call to external contract,
+      type: Warning}
+    - {address: 1376, code: vulnerable_contract.call.value(msg.value)(bytes4(sha3("addToBalance()"))),
+      contract: ReentranceExploit, debug: '', description: "Multiple sends exist in\
+        \ one transaction, try to isolate each external call into its own transaction.\
+        \ As external calls can fail accidentally or deliberately.\nConsecutive calls:\
+        \ \nCall at address: 369\nCall at address: 975\nCall at address: 1376\nCall\
+        \ at address: 369\n", filename: reentrancy/ReentrancyExploit.sol, function: deposit(address),
+      lineno: 15, title: Multiple Calls, type: Information}
+    result: True Positive
+  unchecked_external_call/KotET_source_code/KingOfTheEtherThrone:
+    bug_type: Unchecked External Call
+    elapsed_str: ignored
+    expected_data: {bug_type: Unchecked External Call, has_bug: true, ignore: true,
+      reason: 'solc doesn''t compile it - issue #16'}
+    result: Ignored
+  unprotected_function/Unprotected:
+    bug_type: Unprotected Function
+    elapsed: 5.041945695877075
+    elapsed_str: ' 5.04 seconds'
+    execution_returncode: 0
+    expected_data:
+      bug_type: Unprotected Function
+      has_bug: true
+      ignore: false
+      issues: []
+    issues: []
+    result: False Negative
+  unprotected_function/WalletLibrary_source_code/WalletLibrary:
+    bug_type: Unprotected Function
+    elapsed_str: ignored
+    expected_data: {bug_type: Unprotected Function, has_bug: true, ignore: true, reason: solc
+        doesn't compile it}
+    result: Ignored
+  variable shadowing/inherited_state:
+    benchmark_success: true
+    bug_type: Variable Shadowing
+    elapsed: 1.7565791606903076
+    elapsed_str: ' 1.76 seconds'
+    execution_returncode: 0
+    expected_data:
+      bug_type: Variable Shadowing
+      has_bug: true
+      ignore: false
+      issues:
+      - {address: 307, contract: C, title: Unchecked SUICIDE}
+      - {address: 307, contract: Suicidal, title: Unchecked SUICIDE}
+    issues:
+    - {address: 307, code: selfdestruct(owner), contract: C, debug: 'SOLVER OUTPUT:
+
+        caller: 0x0
+
+        calldata_C[0]: 0xc96cd46f00000000000000000000000000000000000000000000000000000000
+
+        calldatasize_C: 0x4
+
+        call_value: 0x0
+
+        ', description: 'The function `suicide()` executes the SUICIDE instruction.
+        The remaining Ether is sent to: 1461501637330902918203684832716283019655932542975
+        &
+
+        1461501637330902918203684832716283019655932542975 &
+
+        UDiv(0, 256)
+
+
+        It seems that this function can be called without restrictions.', filename: variable
+        shadowing/inherited_state.sol, function: suicide(), lineno: 5, title: Unchecked
+        SUICIDE, type: Warning}
+    - {address: 307, code: selfdestruct(owner), contract: Suicidal, debug: 'SOLVER
+        OUTPUT:
+
+        caller: 0x0
+
+        calldata_Suicidal[0]: 0xc96cd46f00000000000000000000000000000000000000000000000000000000
+
+        calldatasize_Suicidal: 0x4
+
+        call_value: 0x0
+
+        ', description: 'The function `suicide()` executes the SUICIDE instruction.
+        The remaining Ether is sent to: 1461501637330902918203684832716283019655932542975
+        &
+
+        1461501637330902918203684832716283019655932542975 &
+
+        UDiv(0, 256)
+
+
+        It seems that this function can be called without restrictions.', filename: variable
+        shadowing/inherited_state.sol, function: suicide(), lineno: 5, title: Unchecked
+        SUICIDE, type: Warning}
+    result: True Positive
+date: '2018-08-27 19:20:46'
+error_execution: 3
+expected: 1
+ignored_benchmarks: 4
+invalid_execution: 0
+suite: (Not so) Smart Contracts
+timed_out: 2
+total_time: 309.03551959991455
+total_time_str: 5 minutes,  9.04 seconds
+unconfigured: 0
+version: v0.18.11
