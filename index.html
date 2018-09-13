@@ -61,17 +61,12 @@
         <div class="col-4">
           <p><strong><a href="http://trailofbits/manticore">Manticore</a></strong></p>
 	  Manticore is a symbolic execution tool for analysis of binaries and smart contracts.<p>
-	  <p>Adapted
-	    from <a href="https://github.com/trailofbits/manticore/issues/1099">this</a>:
-	      Manticore is not really intended for lightweight detection
-	      of certain kinds of vulnerabilities it was designed for
-	      arbitrary discovery of real possible contract states,
-	      using a transactional approach every state should be
-	      reproducible, no false positives in the sense that no
-	      infeasible states are generated this is more useful for
-	      contract verification part of the secure development
-	      process, rather than lightweight developer security
-	      feedback.</p>
+		
+	  <p>One of Manticore's primary goals is to enable automatic discovery of arbitrary feasible contract states.
+		Towards this goal, Manticore's design tradeoffs favor soundness over
+		analysis runtime speed, making it especially useful for high confidence contract verification, in
+		addition to lightweight security analysis use cases.
+		</p>
         </div>
         <div class="col-4">
           <p><strong><a href="https://oyente.tech/">Oyente</a></strong></p>
